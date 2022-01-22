@@ -28,12 +28,7 @@ namespace SmellyTicTacToe
         private void updateGameState(char symbol, int x, int y)
         {
             _lastSymbol = symbol;
-            var newTile = new Tile
-            {
-                X = x,
-                Y = y,
-                Symbol = symbol
-            };
+            var newTile = new Tile(x: x, y: y, symbol: symbol);
             _board.AddTileAt(newTile);
         }
 

@@ -13,13 +13,13 @@ namespace SmellyTicTacToe
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    _plays.Add(new Tile{ X = i, Y = j, Symbol = ' '});
+                    _plays.Add(new Tile(x: i, y: j, symbol: ' '));
                 }  
             }       
         }
         public Tile TileAt(int x, int y)
         {
-            return _plays.Single(tile => tile.X == x && tile.Y == y);
+            return _plays.Single(tile => tile.IsInPosition(x, y));
         }
 
         public char SymbolAt(int x, int y)
@@ -29,7 +29,7 @@ namespace SmellyTicTacToe
 
         public void AddTileAt(Tile tile)
         {
-            _plays.Single(playedTile => playedTile.X == tile.X && playedTile.Y == tile.Y).Symbol = tile.Symbol;
+            _plays.Single(playedTile => playedTile.IsInPosition(tile)).Symbol = tile.Symbol;
         }
     }
 }
