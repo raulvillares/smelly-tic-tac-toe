@@ -30,6 +30,11 @@ namespace SmellyTicTacToe
             return _plays.Single(tile => tile.X == x && tile.Y == y);
         }
 
+        public char SymbolAt(int x, int y)
+        {
+            return TileAt(x, y).Symbol;
+        }
+
         public void AddTileAt(char symbol, int x, int y)
         {
             var newTile = new Tile
@@ -58,17 +63,12 @@ namespace SmellyTicTacToe
         
         public char Winner()
         {
-            if (IsRowFullWithSameSymbol(0)) return SymbolAt(0, 0);
-            if (IsRowFullWithSameSymbol(1)) return _board.TileAt(1, 0).Symbol;
-            if (IsRowFullWithSameSymbol(2)) return _board.TileAt(2, 0).Symbol;
+            if (IsRowFullWithSameSymbol(0)) return _board.SymbolAt(0, 0);
+            if (IsRowFullWithSameSymbol(1)) return _board.SymbolAt(1, 0);
+            if (IsRowFullWithSameSymbol(2)) return _board.SymbolAt(2, 0);
             return ' ';
         }
-
-        private char SymbolAt(int x, int y)
-        {
-            return _board.TileAt(x, y).Symbol;
-        }
-
+        
         private void updateGameState(char symbol, int x, int y)
         {
             _lastSymbol = symbol;
