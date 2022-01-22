@@ -58,11 +58,16 @@ namespace SmellyTicTacToe
         
         public char Winner()
         {
-            if (IsRowFullWithSameSymbol(0)) return _board.TileAt(0, 0).Symbol;
+            if (IsRowFullWithSameSymbol(0)) return SymbolAt(0, 0);
             if (IsRowFullWithSameSymbol(1)) return _board.TileAt(1, 0).Symbol;
             if (IsRowFullWithSameSymbol(2)) return _board.TileAt(2, 0).Symbol;
             return ' ';
-        }    
+        }
+
+        private char SymbolAt(int x, int y)
+        {
+            return _board.TileAt(x, y).Symbol;
+        }
 
         private void updateGameState(char symbol, int x, int y)
         {
