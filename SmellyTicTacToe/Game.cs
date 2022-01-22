@@ -1,53 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace SmellyTicTacToe
 {
-    public class Tile
-    {
-        public int X {get; set;}
-        public int Y {get; set;}
-        public char Symbol {get; set;}
-    }
-
-    public class Board
-    {
-        private List<Tile> _plays = new List<Tile>();
-   
-        public Board()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
-                {
-                    _plays.Add(new Tile{ X = i, Y = j, Symbol = ' '});
-                }  
-            }       
-        }
-        public Tile TileAt(int x, int y)
-        {
-            return _plays.Single(tile => tile.X == x && tile.Y == y);
-        }
-
-        public char SymbolAt(int x, int y)
-        {
-            return TileAt(x, y).Symbol;
-        }
-
-        public void AddTileAt(char symbol, int x, int y)
-        {
-            var newTile = new Tile
-            {
-                X = x,
-                Y = y,
-                Symbol = symbol
-            };
-
-            _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
-        }
-    }
-
     public class Game
     {
         private char _lastSymbol = ' ';
@@ -72,7 +28,13 @@ namespace SmellyTicTacToe
         private void updateGameState(char symbol, int x, int y)
         {
             _lastSymbol = symbol;
-            _board.AddTileAt(symbol, x, y);
+            var newTile = new Tile
+            {
+                X = x,
+                Y = y,
+                Symbol = symbol
+            };
+            _board.AddTileAt(newTile);
         }
 
         private void checkMovementIsValid(int x, int y)
