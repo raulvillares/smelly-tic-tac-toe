@@ -50,29 +50,50 @@ namespace SmellyTicTacToe
     
         public void Play(char symbol, int x, int y)
         {
-            //if first move
-            if(_lastSymbol == ' ')
-            {
-                //if player is X
-                if(symbol == 'O')
-                {
-                    throw new Exception("Invalid first player");
-                }
-            } 
-            //if not first move but player repeated
-            else if (symbol == _lastSymbol)
-            {
-                throw new Exception("Invalid next player");
-            }
-            //if not first move but play on an already played tile
-            else if (_board.TileAt(x, y).Symbol != ' ')
+            checkValidFirstMovement(symbol);
+            checkIsNotRepeatedPlayer(symbol);
+            checkMovementIsValid(x, y);
+            updateGameState(symbol, x, y);
+        }
+
+        private void updateGameState(char symbol, int x, int y)
+        {
+            _lastSymbol = symbol;
+            _board.AddTileAt(symbol, x, y);
+        }
+
+        private void checkMovementIsValid(int x, int y)
+        {
+            if (_board.TileAt(x, y).Symbol != ' ')
             {
                 throw new Exception("Invalid position");
             }
+        }
 
-            // update game state
-            _lastSymbol = symbol;
-            _board.AddTileAt(symbol, x, y);
+        private void checkIsNotRepeatedPlayer(char symbol)
+        {
+            if (symbol == _lastSymbol)
+            {
+                throw new Exception("Invalid next player");
+            }
+        }
+
+        private void checkValidFirstMovement(char symbol)
+        {
+            if(isFirstMove() && isInvalidFirstPlayer(symbol))
+            {
+                throw new Exception("Invalid first player");
+            } 
+        }
+
+        private static bool isInvalidFirstPlayer(char symbol)
+        {
+            return symbol == 'O';
+        }
+
+        private bool isFirstMove()
+        {
+            return _lastSymbol == ' ';
         }
 
         public char Winner()
