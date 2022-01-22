@@ -57,7 +57,7 @@ namespace SmellyTicTacToe
         }
         
         public char Winner()
-        {   //if the positions in first row are taken
+        {
             if (IsRowFullWithSameSymbol(0)) return _board.TileAt(0, 0).Symbol;
             if (IsRowFullWithSameSymbol(1)) return _board.TileAt(1, 0).Symbol;
             if (IsRowFullWithSameSymbol(2)) return _board.TileAt(2, 0).Symbol;
